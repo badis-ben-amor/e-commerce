@@ -15,6 +15,14 @@ const Login = () => {
     e.preventDefault();
     dispatch(userLoginThunk({ email, password }));
   };
+
+  const handleLocallStorage = () => {
+    localStorage.setItem("john", "jho@gmai");
+  };
+
+  const handlecoocikes = () => {
+    document.cookie = "name=value";
+  };
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
@@ -53,6 +61,8 @@ const Login = () => {
             <Button type="submit" className="my-3 w-100">
               Login
             </Button>
+            <Button onClick={handleLocallStorage}>local storage</Button>
+            <Button onClick={handlecoocikes}>cookies</Button>
           </Form>
         </Col>
       </Row>

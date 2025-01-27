@@ -35,9 +35,6 @@ app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/product", productRoutes);
 app.use("/uploads", fileRoutes);
-app.get("/", (req, res) => {
-  res.send("Server is running!");
-});
 
 // user routes
 app.use("/user", userRoutes);
@@ -47,6 +44,10 @@ app.use("/cart", cartRouters);
 app.use("/admin/product", productRoutesAdmin);
 app.use("/admin/user", userRoutesAdmin);
 app.use("/admin/order", orderRoutesAdmin);
+// test
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

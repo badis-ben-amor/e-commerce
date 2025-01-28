@@ -15,11 +15,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Cancel, CheckCircle, Delete } from "@mui/icons-material";
+import { getToken } from "../../services/tokenServices";
 
 const OrdersAdmin = () => {
   const dispatch = useDispatch();
   const { orders: ordersData } = useSelector((state) => state.adminOrder);
-  const { accessToken } = useSelector((state) => state.auth);
+  // const { accessToken } = useSelector((state) => state.auth);
+  const accessToken = getToken();
 
   const [orders, setOrders] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

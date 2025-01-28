@@ -17,7 +17,8 @@ import UserProtect from "./components/protectsRoutes/UserProtect";
 
 const App = () => {
   const dispatch = useDispatch();
-  const { accessToken } = useSelector((state) => state.auth);
+  // const { accessToken } = useSelector((state) => state.auth);
+  const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     dispatch(getUserProfileThunk(accessToken));
   }, [dispatch]);

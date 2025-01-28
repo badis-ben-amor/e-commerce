@@ -14,25 +14,25 @@ const EcommerceNavbar = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/products">
           E-Commerce
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
-          <Nav className="mx-5">
-            <Nav.Link as={Link} to="/">
+          <Nav style={{ marginLeft: "100px" }}>
+            {/* <Nav.Link as={Link} to="/">
               Home
-            </Nav.Link>
-            <Nav.Link as={Link} to="/products">
+            </Nav.Link> */}
+            <Nav.Link className="me-4" as={Link} to="/products">
               Products
             </Nav.Link>
-            <Nav.Link as={Link} to="/cart">
+            <Nav.Link className="me-4" as={Link} to="/cart">
               Cart
             </Nav.Link>
-            <Nav.Link as={Link} to="/orders">
+            <Nav.Link className="me-4" as={Link} to="/orders">
               Orders
             </Nav.Link>
-            <Nav.Link as={Link} to="/admin">
+            <Nav.Link className="me-4" as={Link} to="/admin">
               Admin
             </Nav.Link>
           </Nav>

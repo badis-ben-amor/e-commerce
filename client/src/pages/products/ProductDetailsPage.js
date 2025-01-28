@@ -5,6 +5,7 @@ import { getProductByIdThunk } from "../../redux/slices/productSlice";
 import { addItemToCartThunk } from "../../redux/slices/cartSlice";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { CartPlus } from "react-bootstrap-icons";
+import { getToken } from "../../services/tokenServices";
 
 const ProductDetailsPage = () => {
   const params = useParams();
@@ -17,7 +18,8 @@ const ProductDetailsPage = () => {
   const { product: productData, isLoading } = useSelector(
     (state) => state.product
   );
-  const { accessToken } = useSelector((state) => state.auth);
+  // const { accessToken } = useSelector((state) => state.auth);
+  const accessToken = getToken();
 
   useEffect(() => {
     dispatch(getProductByIdThunk(productId));

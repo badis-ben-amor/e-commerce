@@ -44,7 +44,12 @@ const registerUser = async (req, res) => {
     res.status(200).json({
       message: "User register successfully",
       accessToken,
+      refreshToken,
     });
+    // res.status(200).json({
+    //   message: "User register successfully",
+    //   accessToken,
+    // });
   } catch (error) {
     res.status(500).json({
       message: "Network error",
@@ -79,7 +84,12 @@ const loginUser = async (req, res) => {
     res.status(200).json({
       message: "Login successfully",
       accessToken,
+      refreshToken,
     });
+    // res.status(200).json({
+    //   message: "Login successfully",
+    //   accessToken,
+    // });
   } catch (error) {
     res.status(500).json({
       message: "Network error",
@@ -89,7 +99,8 @@ const loginUser = async (req, res) => {
 };
 
 const refresh = async (req, res) => {
-  const { refreshToken } = req.cookies;
+  const { refreshToken } = req.body;
+  // const { refreshToken } = req.cookies;
   if (!refreshToken)
     return res.status(401).json({ message: "Refresh token missing" });
   try {

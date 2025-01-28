@@ -28,7 +28,7 @@ export const updatCartItem = async ({ productId, quantity, accessToken }) => {
       headers: { Authorization: `Bearer ${accessToken}` },
     }
   );
-  return res;
+  return res.data;
 };
 
 export const removeCartItem = async ({ productId, accessToken }) => {
@@ -40,5 +40,5 @@ export const removeCartItem = async ({ productId, accessToken }) => {
       },
     }
   );
-  return res;
+  return res.data;
 };

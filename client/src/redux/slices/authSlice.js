@@ -66,8 +66,10 @@ const authSlice = createSlice({
       .addCase(userRegisterThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(userRegisterThunk.fulfilled, (state) => {
+      .addCase(userRegisterThunk.fulfilled, (state, action) => {
         state.isLoading = false;
+        localStorage.setItem("accessToken", action.payload.accessToken);
+        localStorage.setItem("refreshToken", action.payload.refreshToken);
       })
       .addCase(userRegisterThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -76,8 +78,10 @@ const authSlice = createSlice({
       .addCase(userLoginThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(userLoginThunk.fulfilled, (state) => {
+      .addCase(userLoginThunk.fulfilled, (state, action) => {
         state.isLoading = false;
+        localStorage.setItem("accessToken", action.payload.accessToken);
+        localStorage.setItem("refreshToken", action.payload.refreshToken);
       })
       .addCase(userLoginThunk.rejected, (state, action) => {
         state.isLoading = false;

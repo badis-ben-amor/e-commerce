@@ -27,6 +27,7 @@ import {
   Trash,
 } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { getToken } from "../../services/tokenServices";
 
 const CartPage = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,8 @@ const CartPage = () => {
   });
 
   const { items: itemsData } = useSelector((state) => state.cart);
-  const { accessToken } = useSelector((state) => state.auth);
+  // const { accessToken } = useSelector((state) => state.auth);
+  const accessToken = getToken();
 
   useEffect(() => {
     dispatch(getCartThunk(accessToken));

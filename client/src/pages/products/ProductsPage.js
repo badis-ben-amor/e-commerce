@@ -5,14 +5,15 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { CartPlus, InfoCircle } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import { addItemToCartThunk } from "../../redux/slices/cartSlice";
+import { getToken } from "../../services/tokenServices";
 
 const ProductsPage = () => {
   const dispatch = useDispatch();
-
   const [products, setProducts] = useState([]);
 
   const { products: allProducts } = useSelector((state) => state.product);
-  const { accessToken } = useSelector((state) => state.auth);
+  // const { accessToken } = useSelector((state) => state.auth);
+  const accessToken = getToken();
 
   useEffect(() => {
     dispatch(getAllProductsThunk());

@@ -5,6 +5,7 @@ import {
   addOrderThunk,
 } from "../../redux/slices/orderSlice";
 import { Badge, ListGroup } from "react-bootstrap";
+import { getToken } from "../../services/tokenServices";
 
 const OrdersPage = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,8 @@ const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
 
   const { orders: ordersData } = useSelector((state) => state.order);
-  const { accessToken } = useSelector((state) => state.auth);
+  // const { accessToken } = useSelector((state) => state.auth);
+  const accessToken = getToken();
 
   useEffect(() => {
     dispatch(getUsersOrdersThunk(accessToken));

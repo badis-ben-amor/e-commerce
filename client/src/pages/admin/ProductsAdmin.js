@@ -20,6 +20,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Add, Delete, Edit } from "@mui/icons-material";
+import { getToken } from "../../services/tokenServices";
 
 const ProductsAdmin = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,8 @@ const ProductsAdmin = () => {
   const { products: productsData, isLoading } = useSelector(
     (state) => state.adminProduct
   );
-  const { accessToken } = useSelector((state) => state.auth);
+  // const { accessToken } = useSelector((state) => state.auth);
+  const accessToken = getToken();
 
   useEffect(() => {
     dispatch(getAllProductsAdminThunk(accessToken));

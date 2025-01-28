@@ -31,7 +31,7 @@ export const createProductAdminThunk = createAsyncThunk(
   "adminProduct/createProduct",
   async ({ formData, accessToken }, thunkAPI) => {
     try {
-      const res = await getAllProductsAdmin({ formData, accessToken });
+      const res = await createProductAdmin({ formData, accessToken });
       return res.data;
     } catch (error) {
       if (error.response?.status === 403) {

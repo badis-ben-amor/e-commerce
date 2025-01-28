@@ -18,6 +18,8 @@ const userRoutes = require("./routes/userRoutes.js");
 const productRoutesAdmin = require("./routes/admin/productRoutesAdmin.js");
 const userRoutesAdmin = require("./routes/admin/userRoutesAdmin.js");
 const orderRoutesAdmin = require("./routes/admin/orderRoutesAdmin.js");
+// cloudinary
+const uploadRoutes = require("./routes/admin/cloudinaryTest.js");
 
 connection();
 // middlewares
@@ -45,6 +47,8 @@ app.use("/cart", cartRouters);
 app.use("/admin/product", productRoutesAdmin);
 app.use("/admin/user", userRoutesAdmin);
 app.use("/admin/order", orderRoutesAdmin);
+// cloudinary
+app.use("/api/upload", uploadRoutes);
 // test
 app.get("/", (req, res) => {
   res.send("Server is running!");

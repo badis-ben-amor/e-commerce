@@ -1,6 +1,6 @@
 const Product = require("../../models/Products");
 const Cart = require("../../models/Cart");
-const path = require("path");
+const cloudinary = require("../../config/cloudinaryConfig");
 
 const getProductsAdmin = async (req, res) => {
   try {
@@ -35,21 +35,29 @@ const getProductByIdAdmin = async (req, res) => {
 
 const createProductAdmin = async (req, res) => {
   const { name, description, price, stock } = req.body;
-  const image = req.file?.filename;
-  if (!name || !image || !description || !price || !stock)
+  let image = "";
+  if (!name || !req.file?.filename || !description || !price || !stock)
     return res
       .status(400)
       .json({ message: "name, image, description, price and stock require" });
   try {
-    const product = new Product({
-      name,
-      image,
-      description,
-      price,
-      stock,
-    });
-    await product.save();
-    res.status(200).json(product);
+    const result = cloudinary.uploader.upload(
+      req.file.path,
+      async (error, result) => {
+        if (error) {
+          return res.status(500).json({ message: error.message });
+        }
+        const product = new Product({
+          name,
+          image: result.secure_url,
+          description,
+          price,
+          stock,
+        });
+        await product.save();
+        res.status(200).json(product);
+      }
+    );
   } catch (error) {
     res.status(500).json({
       message: "Error creating product",

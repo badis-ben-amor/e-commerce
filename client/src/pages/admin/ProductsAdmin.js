@@ -155,7 +155,7 @@ const ProductsAdmin = () => {
               {product.image && (
                 <Box mt={2}>
                   <img
-                    src={`${process.env.REACT_APP_API_KEY}/uploads/${product.image}`}
+                    src={product.image}
                     alt={product.name}
                     style={{
                       width: "100px",

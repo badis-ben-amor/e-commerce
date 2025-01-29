@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import { Add, Delete, Edit } from "@mui/icons-material";
 import { getToken } from "../../services/tokenServices";
+import { Spinner } from "react-bootstrap";
 
 const ProductsAdmin = () => {
   const dispatch = useDispatch();
@@ -36,10 +37,13 @@ const ProductsAdmin = () => {
     stock: "",
     image: null,
   });
+  const [id, setId] = useState("");
 
-  const { products: productsData, isLoading } = useSelector(
-    (state) => state.adminProduct
-  );
+  const {
+    products: productsData,
+    isLoading,
+    updateLoading,
+  } = useSelector((state) => state.adminProduct);
   // const { accessToken } = useSelector((state) => state.auth);
   const accessToken = getToken();
 
@@ -52,6 +56,7 @@ const ProductsAdmin = () => {
   }, [productsData]);
 
   const handleOpenDialog = (mode, product = null) => {
+    product && setId(product._id);
     setDialogMode(mode);
     setSelectedProduct(product);
     setFormValues(
@@ -139,6 +144,11 @@ const ProductsAdmin = () => {
         {products?.map((product) => (
           <Grid item key={product._id} xs={12} md={6} lg={4}>
             <Paper elevation={3} sx={{ p: 2 }}>
+              {updateLoading && id === product._id && (
+                <div className="text-center">
+                  <Spinner size="sm" />
+                </div>
+              )}
               <Typography variant="h6">{product.name}</Typography>
               <Typography variant="body2">{product.description}</Typography>
               <Typography variant="subtitle1">
@@ -182,6 +192,13 @@ const ProductsAdmin = () => {
             </Paper>
           </Grid>
         ))}
+        {isLoading && (
+          <Grid item xs={12} md={6} lg={4}>
+            <div className="text-center">
+              <Spinner />
+            </div>
+          </Grid>
+        )}
       </Grid>
 
       <Dialog open={openDialog} onClose={handleCloseDialog}>

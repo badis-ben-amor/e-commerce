@@ -76,20 +76,46 @@ const updateProductAdmin = async (req, res) => {
         "product id, name, description, price and stock require to update product",
     });
   try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      productId,
-      {
-        name,
-        ...(image && { image }),
-        description,
-        price,
-        stock,
-      },
-      { new: true }
-    );
-    return res
-      .status(200)
-      .json({ message: "Product updated successfully", updatedProduct });
+    if (req.file) {
+      const result = cloudinary.uploader.upload(
+        req.file.path,
+        async (error, result) => {
+          if (error) {
+            return res.status(500).json({ message: error.message });
+          }
+
+          const updatedProduct = await Product.findByIdAndUpdate(
+            productId,
+            {
+              name,
+              image: result.secure_url,
+              description,
+              price,
+              stock,
+            },
+            { new: true }
+          );
+
+          return res
+            .status(200)
+            .json({ message: "Product updated successfully", updatedProduct });
+        }
+      );
+    } else {
+      const updatedProduct = await Product.findByIdAndUpdate(
+        productId,
+        {
+          name,
+          description,
+          price,
+          stock,
+        },
+        { new: true }
+      );
+      return res
+        .status(200)
+        .json({ message: "Product updated successfully", updatedProduct });
+    }
   } catch (error) {
     res.status(500).json({
       message: "Error updating product",

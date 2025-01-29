@@ -109,7 +109,7 @@ const CartPage = () => {
               <td>{i + 1}</td>
               <td>
                 <img
-                  src={`${process.env.REACT_APP_API_KEY}/uploads/${item.product.image}`}
+                  src={item.product.image}
                   alt={item.product.name}
                   style={{ height: "50px", width: "50px", objectFit: "cover" }}
                 ></img>

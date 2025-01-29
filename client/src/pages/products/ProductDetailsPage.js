@@ -41,7 +41,7 @@ const ProductDetailsPage = () => {
             <Card>
               <Card.Img
                 variant="top"
-                src={`${process.env.REACT_APP_API_KEY}/uploads/${product.image}`}
+                src={product.image}
                 alt={product.name}
                 style={{ height: "300px", objectFit: "cover" }}
               />

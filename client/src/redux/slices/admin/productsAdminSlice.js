@@ -107,19 +107,20 @@ const adminProductSlice = createSlice({
     products: [],
     product: {},
     isLoading: false,
+    updateLoading: false,
     error: null,
   },
   extraReducers: (builder) => {
     builder
       .addCase(getAllProductsAdminThunk.pending, (state) => {
-        state.isLoading = true;
+        // state.isLoading = true;
       })
       .addCase(getAllProductsAdminThunk.fulfilled, (state, action) => {
-        state.isLoading = false;
+        // state.isLoading = false;
         state.products = action.payload;
       })
       .addCase(getAllProductsAdminThunk.rejected, (state, action) => {
-        state.isLoading = false;
+        // state.isLoading = false;
         state.error = action.payload;
       })
       .addCase(createProductAdminThunk.pending, (state) => {
@@ -133,23 +134,23 @@ const adminProductSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(updateProductAdminThunk.pending, (state) => {
-        state.isLoading = true;
+        state.updateLoading = true;
       })
       .addCase(updateProductAdminThunk.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.updateLoading = false;
       })
       .addCase(updateProductAdminThunk.rejected, (state, action) => {
-        state.isLoading = false;
+        state.updateLoading = false;
         state.error = action.payload;
       })
       .addCase(deleteProductAdminThunk.pending, (state) => {
-        state.isLoading = true;
+        // state.isLoading = true;
       })
       .addCase(deleteProductAdminThunk.fulfilled, (state) => {
-        state.isLoading = false;
+        // state.isLoading = false;
       })
       .addCase(deleteProductAdminThunk.rejected, (state, action) => {
-        state.isLoading = false;
+        // state.isLoading = false;
         state.error = action.payload;
       });
   },

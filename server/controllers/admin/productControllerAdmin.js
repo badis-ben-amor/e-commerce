@@ -35,7 +35,6 @@ const getProductByIdAdmin = async (req, res) => {
 
 const createProductAdmin = async (req, res) => {
   const { name, description, price, stock } = req.body;
-  let image = "";
   if (!name || !req.file?.filename || !description || !price || !stock)
     return res
       .status(400)
@@ -69,7 +68,7 @@ const createProductAdmin = async (req, res) => {
 const updateProductAdmin = async (req, res) => {
   const { productId } = req.params;
   const { name, description, price, stock } = req.body;
-  const image = req.file?.filename;
+
   if (!productId || !name || !description || !price || !stock)
     return res.status(400).json({
       message:
@@ -77,30 +76,27 @@ const updateProductAdmin = async (req, res) => {
     });
   try {
     if (req.file) {
-      const result = cloudinary.uploader.upload(
-        req.file.path,
-        async (error, result) => {
-          if (error) {
-            return res.status(500).json({ message: error.message });
-          }
-
-          const updatedProduct = await Product.findByIdAndUpdate(
-            productId,
-            {
-              name,
-              image: result.secure_url,
-              description,
-              price,
-              stock,
-            },
-            { new: true }
-          );
-
-          return res
-            .status(200)
-            .json({ message: "Product updated successfully", updatedProduct });
+      cloudinary.uploader.upload(req.file.path, async (error, result) => {
+        if (error) {
+          return res.status(500).json({ message: error.message });
         }
-      );
+
+        const updatedProduct = await Product.findByIdAndUpdate(
+          productId,
+          {
+            name,
+            image: result.secure_url,
+            description,
+            price,
+            stock,
+          },
+          { new: true }
+        );
+
+        return res
+          .status(200)
+          .json({ message: "Product updated successfully", updatedProduct });
+      });
     } else {
       const updatedProduct = await Product.findByIdAndUpdate(
         productId,

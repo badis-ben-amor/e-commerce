@@ -8,7 +8,7 @@ const EcommerceNavbar = () => {
   const user = null;
   // const user = { name: "John Doe" }; // Example user
   const { items } = useSelector((state) => state.cart);
-  const cartItemsCount = items?.lenght;
+  const cartItemsCount = items?.items?.length;
 
   const onLogout = () => {
     console.log("User logged out");

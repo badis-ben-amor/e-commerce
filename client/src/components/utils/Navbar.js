@@ -8,7 +8,7 @@ const EcommerceNavbar = () => {
   const user = null;
   // const user = { name: "John Doe" }; // Example user
   const { items } = useSelector((state) => state.cart);
-  const cartItemsCount = items?.lenght();
+  const cartItemsCount = items?.lenght;
 
   const onLogout = () => {
     console.log("User logged out");
@@ -16,7 +16,7 @@ const EcommerceNavbar = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
       <Container>
-        <Navbar.Brand as={Link} to="/products">
+        <Navbar.Brand as={Link} to="/">
           E-Commerce
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
@@ -25,7 +25,7 @@ const EcommerceNavbar = () => {
             {/* <Nav.Link as={Link} to="/">
               Home
             </Nav.Link> */}
-            <Nav.Link className="me-4" as={Link} to="/products">
+            <Nav.Link className="me-4" as={Link} to="/">
               Products
             </Nav.Link>
             <Nav.Link className="me-4" as={Link} to="/cart">

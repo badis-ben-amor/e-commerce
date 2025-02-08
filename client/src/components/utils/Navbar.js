@@ -2,11 +2,13 @@ import React from "react";
 import { Navbar, Nav, NavDropdown, Badge, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Cart, PersonCircle, BoxArrowRight } from "react-bootstrap-icons";
+import { useSelector } from "react-redux";
 
 const EcommerceNavbar = () => {
   const user = null;
   // const user = { name: "John Doe" }; // Example user
-  const cartItemsCount = 33;
+  const { items } = useSelector((state) => state.cart);
+  const cartItemsCount = items?.lenght();
 
   const onLogout = () => {
     console.log("User logged out");

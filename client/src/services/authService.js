@@ -7,8 +7,8 @@ export const registerUser = async ({ name, email, password }) => {
       name,
       email,
       password,
-    },
-    { withCredentials: true }
+    }
+    // ,{ withCredentials: true }
   );
   return res;
 };
@@ -19,8 +19,8 @@ export const loginUser = async ({ email, password }) => {
     {
       email,
       password,
-    },
-    { withCredentials: true }
+    }
+    // ,{ withCredentials: true }
   );
   return res;
 };
@@ -28,8 +28,8 @@ export const loginUser = async ({ email, password }) => {
 export const refresh = async () => {
   const res = await axios.post(
     `${process.env.REACT_APP_API_KEY}/auth/refresh`,
-    {},
-    { withCredentials: true }
+    {}
+    // ,{ withCredentials: true }
   );
   return res;
 };
@@ -37,8 +37,8 @@ export const refresh = async () => {
 export const logout = async () => {
   const res = await axios.post(
     `${process.env.REACT_APP_API_KEY}auth/logout`,
-    {},
-    { withCredentials: true }
+    {}
+    // ,{ withCredentials: true }
   );
   return res;
 };

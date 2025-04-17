@@ -28,7 +28,6 @@ const ProductsPage = () => {
   };
   return (
     <Container className="mt-4">
-      ji
       <h1 className="text-center mb-4">Products</h1>
       <Row>
         {products.map((product) => (

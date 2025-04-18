@@ -78,7 +78,7 @@ const loginUser = async (req, res) => {
     res.cookie("refreshToken", refreshToken, {
       htppOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
+      sameSite: "strict",
     });
 
     res.status(200).json({

@@ -33,7 +33,7 @@ const ProductsPage = () => {
     <Container className="mt-4">
       <h1 className="text-center mb-4">Products</h1>
       <Row>
-        {products.map((product) => (
+        {products?.map((product) => (
           <Col key={product._id} md={4} className="mb-4">
             <Card>
               <Card.Img

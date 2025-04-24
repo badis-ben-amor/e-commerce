@@ -8,14 +8,17 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error } = useSelector((state) => state.auth);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(userLoginThunk({ email, password })).then(() => navigate("/"));
+    dispatch(userLoginThunk({ email, password }))
+      .unwrap()
+      .then(() => navigate("/"))
+      .catch((err) => setError(err.message || err));
   };
 
   return (

@@ -4,27 +4,30 @@ import { getAllProductsThunk } from "../../redux/slices/productSlice";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { CartPlus, InfoCircle } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
-import { addItemToCartThunk } from "../../redux/slices/cartSlice";
+import { addItemToCartThunk, getCartThunk } from "../../redux/slices/cartSlice";
 import { getToken } from "../../services/tokenServices";
+import { getUserProfileThunk } from "../../redux/slices/profileSlice";
 
 const ProductsPage = () => {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState([]);
-
   const { products: allProducts } = useSelector((state) => state.product);
-  // const { accessToken } = useSelector((state) => state.auth);
-  const accessToken = getToken();
+  const { accessToken } = useSelector((state) => state.auth);
 
+  const [products, setProducts] = useState([]);
   useEffect(() => {
     dispatch(getAllProductsThunk());
-  }, [dispatch]);
+    dispatch(getUserProfileThunk(accessToken));
+    dispatch(getCartThunk(accessToken));
+  }, []);
 
   useEffect(() => {
     setProducts(allProducts);
   }, [allProducts]);
 
   const handleAddCartItem = (productId) => {
-    dispatch(addItemToCartThunk({ productId, accessToken }));
+    dispatch(addItemToCartThunk({ productId, accessToken })).then(() =>
+      dispatch(getCartThunk(accessToken))
+    );
   };
   return (
     <Container className="mt-4">

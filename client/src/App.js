@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfileThunk } from "./redux/slices/profileSlice";
-import Navbar from "./components/utils/Navbar";
+import Navbar from "./components/Navbar";
 import Register from "./pages/auth/Register";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
@@ -14,6 +14,7 @@ import Dashboard from "./pages/admin/DashboardAdmin";
 import ProductsAdmin from "./pages/admin/ProductsAdmin";
 import OrdersAdmin from "./pages/admin/OrdersAdmin";
 import UserProtect from "./components/protectsRoutes/UserProtect";
+import { getCartThunk } from "./redux/slices/cartSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,8 @@ const App = () => {
   const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
     dispatch(getUserProfileThunk(accessToken));
-  }, [dispatch]);
+    dispatch(getCartThunk(accessToken));
+  }, []);
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Navbar />

@@ -3,18 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { userRegisterThunk } from "../../redux/slices/authSlice";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { PersonFill, EnvelopeFill, KeyFill } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(userRegisterThunk({ name, email, password }));
+    dispatch(userRegisterThunk({ name, email, password }))
+      .unwrap()
+      .then(() => navigate("/"))
+      .catch((err) => setError(err.message || err));
   };
   return (
     <Container className="mt-5">

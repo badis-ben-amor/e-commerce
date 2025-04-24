@@ -13,7 +13,9 @@ export const userRegisterThunk = createAsyncThunk(
       const res = await registerUser({ name, email, password });
       return res.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -25,7 +27,9 @@ export const userLoginThunk = createAsyncThunk(
       const res = await loginUser({ email, password });
       return res.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -47,9 +51,11 @@ export const logoutThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await logout();
-      return res;
+      return res.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message);
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
     }
   }
 );
@@ -58,7 +64,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     isLoading: false,
-    error: null,
+    error: "",
     accessToken: "",
   },
   extraReducers: (builder) => {
@@ -68,24 +74,20 @@ const authSlice = createSlice({
       })
       .addCase(userRegisterThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        localStorage.setItem("accessToken", action.payload.accessToken);
-        localStorage.setItem("refreshToken", action.payload.refreshToken);
+        state.accessToken = action.payload.accessToken;
       })
-      .addCase(userRegisterThunk.rejected, (state, action) => {
+      .addCase(userRegisterThunk.rejected, (state) => {
         state.isLoading = false;
-        state.error = action.payload;
       })
       .addCase(userLoginThunk.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(userLoginThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        localStorage.setItem("accessToken", action.payload.accessToken);
-        localStorage.setItem("refreshToken", action.payload.refreshToken);
+        state.accessToken = action.payload.accessToken;
       })
-      .addCase(userLoginThunk.rejected, (state, action) => {
+      .addCase(userLoginThunk.rejected, (state) => {
         state.isLoading = false;
-        state.error = action.payload;
       })
       .addCase(refreshThunk.pending, (state) => {
         state.isLoading = true;

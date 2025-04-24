@@ -44,12 +44,7 @@ const registerUser = async (req, res) => {
     res.status(200).json({
       message: "User register successfully",
       accessToken,
-      refreshToken,
     });
-    // res.status(200).json({
-    //   message: "User register successfully",
-    //   accessToken,
-    // });
   } catch (error) {
     res.status(500).json({
       message: "Network error",
@@ -66,7 +61,7 @@ const loginUser = async (req, res) => {
       .json({ message: "Email and passwor require to login" });
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(401).json({ message: "Invalid credentials" });
+    if (!user) return res.status(401).json({ message: "User Not Found" });
 
     const comparedPassword = await bcrypt.compare(password, user.password);
     if (!comparedPassword)
@@ -84,12 +79,7 @@ const loginUser = async (req, res) => {
     res.status(200).json({
       message: "Login successfully",
       accessToken,
-      refreshToken,
     });
-    // res.status(200).json({
-    //   message: "Login successfully",
-    //   accessToken,
-    // });
   } catch (error) {
     res.status(500).json({
       message: "Network error",
@@ -99,8 +89,7 @@ const loginUser = async (req, res) => {
 };
 
 const refresh = async (req, res) => {
-  const { refreshToken } = req.body;
-  // const { refreshToken } = req.cookies;
+  const { refreshToken } = req.cookies;
   if (!refreshToken)
     return res.status(401).json({ message: "Refresh token missing" });
   try {
@@ -123,7 +112,7 @@ const logout = async (req, res) => {
   res.clearCookie("refreshToken", {
     htppOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    sameSite: "strict",
   });
   try {
     res.status(200).json({ message: "Logout out successfully" });

@@ -6,14 +6,14 @@ const generateAccessToken = (user) => {
   return jwt.sign(
     { userId: user.id, isAdmin: user.isAdmin },
     process.env.ACCESS_SERCRET_KEY,
-    { expiresIn: "100d" }
+    { expiresIn: "58" }
   );
 };
 const generateRefreshToken = (user) => {
   return jwt.sign(
     { userId: user.id, isAdmin: user.isAdmin },
     process.env.REFRESH_SECRET_KEY,
-    { expiresIn: "150d" }
+    { expiresIn: "87d" }
   );
 };
 

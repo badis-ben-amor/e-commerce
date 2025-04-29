@@ -34,6 +34,9 @@ app.use(
 
 app.use(cookieParser());
 
+// serve static files
+app.use(express.static("public"));
+
 // public routes
 app.use("/auth", authRoutes);
 app.use("/product", productRoutes);

@@ -18,8 +18,7 @@ import { getCartThunk } from "./redux/slices/cartSlice";
 
 const App = () => {
   const dispatch = useDispatch();
-  // const { accessToken } = useSelector((state) => state.auth);
-  const accessToken = localStorage.getItem("accessToken");
+  const { accessToken } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(getUserProfileThunk(accessToken));
     dispatch(getCartThunk(accessToken));

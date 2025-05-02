@@ -9,11 +9,10 @@ const AdminLayout = () => {
   return user.isAdmin ? (
     <div className="d-flex">
       <div style={{ width: "220px", borderRight: "1px solid" }}>
-        {" "}
-        <Sidebar></Sidebar>
+        <Sidebar />
       </div>
       <div className="flex-grow-1 p-3">
-        <Outlet></Outlet>
+        <Outlet />
       </div>
     </div>
   ) : (

@@ -6,7 +6,7 @@ const generateAccessToken = (user) => {
   return jwt.sign(
     { userId: user.id, isAdmin: user.isAdmin },
     process.env.ACCESS_SERCRET_KEY,
-    { expiresIn: "58" }
+    { expiresIn: "58s" }
   );
 };
 const generateRefreshToken = (user) => {
